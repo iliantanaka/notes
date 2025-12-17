@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 
 class MainController extends Controller
 {
-    function index()
+    function index($value)
     {
-        return view('main');
+        return view('main', ['value' => $value]);
+
+        // return view('main')->with('value', $value);
     }
 }

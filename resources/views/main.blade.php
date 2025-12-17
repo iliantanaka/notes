@@ -7,6 +7,8 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Welcome VIEW and CONTROLLER</h1>
+    <h1>Welcome VIEW and BLADE</h1>
+    <hr>
+    <h3>The values is: <?= $value ?> </h3>
 </body>
 </html>
