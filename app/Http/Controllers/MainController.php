@@ -12,4 +12,14 @@ class MainController extends Controller
 
         // return view('main')->with('value', $value);
     }
+
+    function pagina2($value)
+    {
+        return view('pagina2')->with('value', $value);
+    }
+
+    function pagina3($value)
+    {
+        return view('pagina3')->with('value', $value);
+    }
 }
