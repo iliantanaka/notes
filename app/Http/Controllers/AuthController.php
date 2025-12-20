@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -26,14 +27,27 @@ class AuthController extends Controller
                 'text_username.required' => 'O usurname é obrigatório',
                 'text_username.email' => 'Username deve ser um email válido',
                 'text_password.required' => 'A password é obrigatória',
-                'text_password.min' => 'A passoword deve ter pelo menos :min caracteres',
-                'text_password.max' => 'A passoword deve ter no máximo :max caracteres',
+                'text_password.min' => 'A password deve ter pelo menos :min caracteres',
+                'text_password.max' => 'A password deve ter no máximo :max caracteres',
             ]
         );
         // dump and die
         // dd($request);
+
+        // get user input
         echo $request->input('text_username');
         echo '<br>';
         echo $request->input('text_password');
+        echo '<br>';
+
+        // test datebase connection
+        try {
+            DB::connection()->getPdo();
+            echo "Connection successful!";
+        } catch (\PDOException $e) {
+            echo "Connection file: " . $e->getMessage();
+        }
+
+        echo 'FIM';
     }
 }
