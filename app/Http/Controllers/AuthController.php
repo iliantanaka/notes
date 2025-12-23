@@ -12,10 +12,7 @@ class AuthController extends Controller
     {
         return view('login');
     }
-    public function logout()
-    {
-        echo 'Logout';
-    }
+
     public function loginSubmit(Request $request)
     {
         $request->validate(
@@ -82,5 +79,11 @@ class AuthController extends Controller
         ]);
 
         echo 'FIM';
+    }
+
+    public function logout()
+    {
+        session()->forget('user');
+        return redirect()->to('/login');
     }
 }
