@@ -36,20 +36,50 @@ class AuthController extends Controller
         // dd($request);
 
         // get user input
-        echo $request->input('text_username');
-        echo '<br>';
-        echo $request->input('text_password');
-        echo '<br>';
+        $username = $request->input('text_username');
+        $password = $request->input('text_password');
 
         // get all ther users from the database
         // $users = User::all()->toArray();
 
         // as an objet instance of the models's class
-        $userModel = new User();
-        $users = $userModel->all()->toArray();
+        // $userModel = new User();
+        // $users = $userModel->all()->toArray();
 
-        echo '<pre>';
-        print_r($users);
+        // check if user exists
+        $user = User::where('username', $username)
+            ->where('deleted_at', NULL)
+            ->first();
+        // echo '<pre>';
+        // print_r($user);
+
+        if (!$user) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('loginError', 'Username ou password incorretos.');
+        }
+
+
+        // check if password is corret
+        if (!password_verify($password, $user->password)) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('loginError', 'Username ou password incorretos.');
+        };
+
+        //update last login 
+        $user->last_login = date('Y-m-d H:i:s');
+        $user->save();
+
+        //login user
+        session([
+            'user' => [
+                'id' => $user->id,
+                'usernsame' => $user->username
+            ]
+        ]);
 
         echo 'FIM';
     }
