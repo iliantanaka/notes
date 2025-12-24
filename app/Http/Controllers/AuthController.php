@@ -78,7 +78,7 @@ class AuthController extends Controller
             ]
         ]);
 
-        echo 'FIM';
+        return redirect()->to('/');
     }
 
     public function logout()
